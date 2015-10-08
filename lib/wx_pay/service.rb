@@ -81,6 +81,22 @@ module WxPay
       r
     end
 
+    # 查询订单
+    # transaction_id 与 out_trade_no 二选一
+    def self.query_order(params)
+      params = {
+        appid: WxPay.appid,
+        mch_id: WxPay.mch_id,
+        nonce_str: SecureRandom.uuid.tr('-', '')
+      }.merge(params)
+
+      r = invoke_remote "#{GATEWAY_URL}/pay/orderquery", make_payload(params)
+
+      yield(r) if block_given?
+
+      r
+    end
+
     private
 
     def self.check_required_options(options, names)

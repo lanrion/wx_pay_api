@@ -14,8 +14,9 @@ module WxPay
       @rest_client_options || {}
     end
 
-    def apiclient_cert
-      @apiclient_cert ||= OpenSSL::PKCS12.new(WxPay.apiclient_cert_path, WxPay.mch_id)
+    def apiclient_cert(cert_path, mch_id)
+      OpenSSL::PKCS12.new(File.read(cert_path), mch_id)
     end
+
   end
 end

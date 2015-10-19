@@ -38,7 +38,7 @@ module WxPay
       params
     end
 
-    INVOKE_REFUND_REQUIRED_FIELDS = %i(transaction_id out_trade_no out_refund_no total_fee refund_fee)
+    INVOKE_REFUND_REQUIRED_FIELDS = %i(transaction_id out_trade_no out_refund_no total_fee refund_fee, cert_path)
     def self.invoke_refund(params)
       params = {
         appid: WxPay.appid,
@@ -53,9 +53,10 @@ module WxPay
       # https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
       # https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3
 
+      apiclient_cert = WxPay.apiclient_cert(params.delete(:cert_path), params[:mch_id])
       WxPay.extra_rest_client_options = {
-        ssl_client_cert: WxPay.apiclient_cert.certificate,
-        ssl_client_key: WxPay.apiclient_cert.key,
+        ssl_client_cert: apiclient_cert.certificate,
+        ssl_client_key: apiclient_cert.key,
         verify_ssl: OpenSSL::SSL::VERIFY_NONE
       }
 

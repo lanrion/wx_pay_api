@@ -4,7 +4,6 @@ module WxPay
 
     def initialize(result)
       super
-
       if result['xml'].class == Hash
         result['xml'].each_pair do |k, v|
           self[k] = v

@@ -121,7 +121,7 @@ module WxPay
       # 微信退款需要双向证书
       # https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
       # https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3
-      def self.apply_apiclient_cert(cert_path, mch_id)
+      def self.apply_apiclient_cert(params)
         apiclient_cert = WxPay.apiclient_cert(params.delete(:cert_path), params[:mch_id])
         WxPay.extra_rest_client_options = {
           ssl_client_cert: apiclient_cert.certificate,

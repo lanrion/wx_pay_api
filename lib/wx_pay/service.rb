@@ -69,7 +69,7 @@ module WxPay
     # 发送红包
     # https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack
     INVOKE_REDPACK_FIELDS = %i(mch_billno mch_id wxappid send_name re_openid total_amount total_num wishing client_ip act_name remark)
-    def send_redpack(params)
+    def self.send_redpack(params)
       check_required_options(params, INVOKE_REDPACK_FIELDS)
       r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/sendredpack", params, true)
       yield(r) if block_given?

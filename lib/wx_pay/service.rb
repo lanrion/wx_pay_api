@@ -30,7 +30,7 @@ module WxPay
       params
     end
 
-    INVOKE_REFUND_REQUIRED_FIELDS = %i(transaction_id out_trade_no out_refund_no total_fee refund_fee, cert_path)
+    INVOKE_REFUND_REQUIRED_FIELDS = %i(transaction_id out_trade_no out_refund_no total_fee refund_fee cert_path)
     def self.invoke_refund(params)
       params = {
         appid: WxPay.appid,
@@ -68,7 +68,7 @@ module WxPay
 
     # 发送红包
     # https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack
-    INVOKE_REDPACK_FIELDS = %i(mch_billno mch_id wxappid send_name re_openid total_amount total_num wishing client_ip act_name remark key)
+    INVOKE_REDPACK_FIELDS = %i(mch_billno mch_id wxappid send_name re_openid total_amount total_num wishing client_ip act_name remark key cert_path)
     def self.send_redpack(params)
       check_required_options(params, INVOKE_REDPACK_FIELDS)
       r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/sendredpack", params, true)
@@ -78,10 +78,20 @@ module WxPay
 
     # 查询红包
     # https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo
-    INVOKE_QUERY_REDPACK_FIELDS = %i(mch_billno mch_id appid bill_type key)
+    INVOKE_QUERY_REDPACK_FIELDS = %i(mch_billno mch_id appid bill_type key cert_path)
     def self.query_redpack(params)
       check_required_options(params, INVOKE_QUERY_REDPACK_FIELDS)
       r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/gethbinfo", params, true)
+      yield(r) if block_given?
+      r
+    end
+
+    # 发送裂变红包
+    # https://api.mch.weixin.qq.com/mmpaymkttransfers/sendgroupredpack
+    INVOKE_GROUPREDPACK_FIELDS = %i(mch_billno mch_id wxappid send_name re_openid total_amount total_num wishing client_ip act_name remark key amt_type cert_path key)
+    def self.send_groupredpack(params)
+      check_required_options(params, INVOKE_GROUPREDPACK_FIELDS)
+      r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/sendgroupredpack", params, true)
       yield(r) if block_given?
       r
     end

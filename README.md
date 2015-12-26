@@ -1,7 +1,6 @@
 # WxPay
 
 A simple Wechat pay ruby gem, without unnecessary magic or wrapper.
-copied from [alipay](https://github.com/chloerei/alipay) .
 
 Please read official document first: <https://mp.weixin.qq.com/paymch/readtemplate?t=mp/business/course3_tmpl&lang=zh_CN>.
 
@@ -10,13 +9,8 @@ Please read official document first: <https://mp.weixin.qq.com/paymch/readtempla
 Add this line to your Gemfile:
 
 ```ruby
-gem 'wx_pay'
-```
-
-or development version
-
-```ruby
-gem 'wx_pay', :github => 'jasl/wxpay'
+gem 'wx_pay_api'
+# or gem 'wx_pay_api', github: "https://github.com/lanrion/wx_pay_api"
 ```
 
 And then execute:
@@ -29,7 +23,7 @@ $ bundle
 
 ### Config
 
-Create `config/initializers/wx_pay.rb` and put following configurations into it.
+Create `config/initializers/wx_pay.rb` and put following configurations into it if you have only one weixin pay account.
 
 ```ruby
 # required

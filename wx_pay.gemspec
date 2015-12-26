@@ -3,11 +3,11 @@ $:.push File.expand_path("../lib", __FILE__)
 require "wx_pay/version"
 
 Gem::Specification.new do |s|
-  s.name          = "wx_pay"
+  s.name          = "wx_pay_api"
   s.version       = WxPay::VERSION
-  s.authors       = ["Jasl"]
-  s.email         = ["jasl9187@hotmail.com"]
-  s.homepage      = "https://github.com/jasl/wx_pay"
+  s.authors       = ["Jasl", "lanrion"]
+  s.email         = ["jasl9187@hotmail.com", "huaitao-deng@foxmail.com"]
+  s.homepage      = "https://github.com/lanrion/wx_pay_api"
   s.summary       = "An unofficial simple wechat pay gem"
   s.description   = "An unofficial simple wechat pay gem"
   s.license       = "MIT"

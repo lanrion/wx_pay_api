@@ -68,7 +68,7 @@ module WxPay
 
     # 发送红包
     # https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack
-    INVOKE_REDPACK_FIELDS = %i(mch_billno mch_id wxappid send_name re_openid total_amount total_num wishing client_ip act_name remark)
+    INVOKE_REDPACK_FIELDS = %i(mch_billno mch_id wxappid send_name re_openid total_amount total_num wishing client_ip act_name remark key)
     def self.send_redpack(params)
       check_required_options(params, INVOKE_REDPACK_FIELDS)
       r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/sendredpack", params, true)
@@ -76,8 +76,9 @@ module WxPay
       r
     end
 
+    # 查询红包
     # https://api.mch.weixin.qq.com/mmpaymkttransfers/gethbinfo
-    INVOKE_QUERY_REDPACK_FIELDS = %i(mch_billno mch_id appid bill_type)
+    INVOKE_QUERY_REDPACK_FIELDS = %i(mch_billno mch_id appid bill_type key)
     def self.query_redpack(params)
       check_required_options(params, INVOKE_QUERY_REDPACK_FIELDS)
       r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/gethbinfo", params, true)

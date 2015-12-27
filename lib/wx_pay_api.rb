@@ -1,0 +1,1 @@
+require "wx_pay"

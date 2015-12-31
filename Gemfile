@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source "https://ruby.taobao.org"
 
 # Declare your gem's dependencies in tenpay.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and

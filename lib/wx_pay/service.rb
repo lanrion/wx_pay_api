@@ -96,6 +96,24 @@ module WxPay
       r
     end
 
+    # 企业付款
+    INVOKE_PAY_FIELDS = %i(mch_appid mchid partner_trade_no openid check_name amount desc spbill_create_ip cert_path key)
+    def self.qypay(params)
+      check_required_options(params, INVOKE_PAY_FIELDS)
+      r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/promotion/transfers", params, true)
+      yield(r) if block_given?
+      r
+    end
+
+    # 查询企业付款
+    INVOKE_QUERY_PAY_FIELDS = %i(partner_trade_no mch_id appid)
+    def self.query_qypay(params)
+      check_required_options(params, INVOKE_QUERY_PAY_FIELDS)
+      r = invoke_remote("#{GATEWAY_URL}/mmpaymkttransfers/gettransferinfo", params, true)
+      yield(r) if block_given?
+      r
+    end
+
     private
 
       def self.check_required_options(options, names)
@@ -133,7 +151,8 @@ module WxPay
       # https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=9_4
       # https://pay.weixin.qq.com/wiki/doc/api/jsapi.php?chapter=4_3
       def self.apply_apiclient_cert(params)
-        apiclient_cert = WxPay.apiclient_cert(params.delete(:cert_path), params[:mch_id])
+        mch_id = params[:mch_id] || params[:mchid]
+        apiclient_cert = WxPay.apiclient_cert(params.delete(:cert_path), mch_id)
         WxPay.extra_rest_client_options = {
           ssl_client_cert: apiclient_cert.certificate,
           ssl_client_key: apiclient_cert.key,

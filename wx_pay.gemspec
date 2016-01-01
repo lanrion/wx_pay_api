@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
 
   s.add_runtime_dependency "rest-client", '>= 1.7'
   s.add_runtime_dependency "activesupport", '>= 3.2'
